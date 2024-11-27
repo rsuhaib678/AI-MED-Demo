@@ -25,6 +25,9 @@ heart_disease_classes = ['No Disease', 'Disease']
 
 # Preprocessing Functions
 def preprocess_image(image):
+    # Ensure the image has RGB channels
+    if image.mode != "RGB":
+        image = image.convert("RGB")  # Convert grayscale or other formats to RGB
     img = image.resize((128, 128))  # Resize to match model input
     img_array = np.array(img)
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
