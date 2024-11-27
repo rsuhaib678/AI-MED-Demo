@@ -94,7 +94,7 @@ heart_inputs = [
 if st.button("Predict Heart Disease"):
     heart_data = preprocess_tabular(heart_inputs)
     prediction = heart_disease_model.predict(heart_data)
-    predicted_class = heart_disease_classes[int(prediction[0])]
+    predicted_class = heart_disease_classes[int(prediction[0] > 0.5)]
     st.write(f"Heart Disease Prediction: **{predicted_class}**")
 
 st.subheader("Breast Cancer Detection")
