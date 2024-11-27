@@ -81,13 +81,25 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+# Header Layout
 col1, col2, col3 = st.columns([1, 4, 1])
+
 with col1:
-    st.image("logo/logo.png", width=100, use_column_width=False, className="logo-style")
+    st.image("logo/logo.png", width=100, use_column_width=False)  # Removed 'className'
+
 with col2:
-    st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="text-align: center; font-size: 30px; font-weight: bold; line-height: 1.5;">
+            Welcome to<br>
+            <span style="color: #007BFF;">AI-MED Models UK</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 with col3:
-    st.write("")
+    st.write("")  # Leave this empty to maintain layout
 
 st.markdown('<div class="sub-title">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
 st.markdown(
