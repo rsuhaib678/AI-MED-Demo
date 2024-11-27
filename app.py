@@ -6,7 +6,7 @@ import joblib
 from PIL import Image
 
 # Load Models
-#brain_tumor_model = load_model('models/brain_tumor_model.h5', compile=False)
+brain_tumor_model = load_model('models/brain_tumor_model.h5', compile=False)
 lung_cancer_model = load_model('models/lung_cancer_model.h5', compile=False)
 eye_disease_model = load_model('models/eye_disease_model.h5', compile=False)
 breast_cancer_model = load_model('models/breast_cancer_model.h5', compile=False)
@@ -68,11 +68,11 @@ if image_file:
         predicted_class = eye_disease_classes[np.argmax(prediction)]
         st.write(f"Eye Disease Prediction: **{predicted_class}**")
 
-    """elif model_choice == "Brain Tumor":
+    elif model_choice == "Brain Tumor":
         img_array = preprocess_image(image)
         prediction = brain_tumor_model.predict(img_array)
         predicted_class = brain_tumor_classes[np.argmax(prediction)]
-        st.write(f"Brain Tumor Prediction: **{predicted_class}**")"""
+        st.write(f"Brain Tumor Prediction: **{predicted_class}**")
 
 # Tabular Input for Heart and Breast Cancer Models
 st.subheader("Heart Disease Detection")
