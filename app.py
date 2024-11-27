@@ -98,15 +98,46 @@ if st.button("Predict Heart Disease"):
     st.write(f"Heart Disease Prediction: **{predicted_class}**")
 
 st.subheader("Breast Cancer Detection")
-breast_inputs = [st.number_input(f"{feature}", value=0.0) for feature in [
-    "Radius Mean", "Texture Mean", "Perimeter Mean", "Area Mean", "Smoothness Mean",
-    "Compactness Mean", "Concavity Mean", "Concave Points Mean", "Symmetry Mean",
-    "Fractal Dimension Mean"
-]]
+
+# Default values for all 30 features
+breast_inputs = [
+    st.number_input("Radius Mean", value=14.0),
+    st.number_input("Texture Mean", value=19.0),
+    st.number_input("Perimeter Mean", value=90.0),
+    st.number_input("Area Mean", value=600.0),
+    st.number_input("Smoothness Mean", value=0.1),
+    st.number_input("Compactness Mean", value=0.2),
+    st.number_input("Concavity Mean", value=0.3),
+    st.number_input("Concave Points Mean", value=0.1),
+    st.number_input("Symmetry Mean", value=0.2),
+    st.number_input("Fractal Dimension Mean", value=0.07),
+    st.number_input("Radius SE", value=0.5),
+    st.number_input("Texture SE", value=1.0),
+    st.number_input("Perimeter SE", value=3.0),
+    st.number_input("Area SE", value=20.0),
+    st.number_input("Smoothness SE", value=0.005),
+    st.number_input("Compactness SE", value=0.02),
+    st.number_input("Concavity SE", value=0.03),
+    st.number_input("Concave Points SE", value=0.01),
+    st.number_input("Symmetry SE", value=0.02),
+    st.number_input("Fractal Dimension SE", value=0.002),
+    st.number_input("Radius Worst", value=15.0),
+    st.number_input("Texture Worst", value=25.0),
+    st.number_input("Perimeter Worst", value=100.0),
+    st.number_input("Area Worst", value=800.0),
+    st.number_input("Smoothness Worst", value=0.15),
+    st.number_input("Compactness Worst", value=0.25),
+    st.number_input("Concavity Worst", value=0.35),
+    st.number_input("Concave Points Worst", value=0.15),
+    st.number_input("Symmetry Worst", value=0.3),
+    st.number_input("Fractal Dimension Worst", value=0.08)
+]
+
 if st.button("Predict Breast Cancer"):
+    # Preprocess input using the scaler
     breast_data = preprocess_tabular(breast_inputs, scaler=breast_cancer_scaler)
     prediction = breast_cancer_model.predict(breast_data)
-    predicted_class = breast_cancer_classes[np.argmax(prediction)]
+    predicted_class = breast_cancer_classes[int(prediction[0][0] > 0.5)]  # Use 0.5 threshold
     st.write(f"Breast Cancer Prediction: **{predicted_class}**")
 
 # Add Styling
