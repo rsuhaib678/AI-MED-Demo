@@ -39,7 +39,7 @@ def preprocess_tabular(data, scaler=None):
 # Streamlit App Layout
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺")
 st.title("Welcome to AI-MED Models UK")
-st.image("images/logo.png", width=150)
+st.image("logo/logo.png", width=150)
 st.markdown(
     "<h3 style='text-align: center; color: #4CAF50;'>"
     "<a href='http://www.aimedmodels.com' target='_blank'>Visit AI-MED Models</a>"
