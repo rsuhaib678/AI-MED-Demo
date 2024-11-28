@@ -25,82 +25,76 @@ heart_disease_classes = ['No Disease', 'Disease']
 
 # Preprocessing Functions
 def preprocess_image(image):
-    # Ensure the image has RGB channels
+    """Preprocess images for input into models."""
     if image.mode != "RGB":
-        image = image.convert("RGB")  # Convert grayscale or other formats to RGB
-    img = image.resize((128, 128))  # Resize to match model input
+        image = image.convert("RGB")
+    img = image.resize((128, 128))
     img_array = np.array(img)
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-    img_array = img_array / 255.0  # Normalize
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = img_array / 255.0
     return img_array
 
 def preprocess_tabular(data, scaler=None):
-    data = np.array(data).reshape(1, -1)  # Reshape for single sample
+    """Preprocess tabular data for input into models."""
+    data = np.array(data).reshape(1, -1)
     if scaler:
         data = scaler.transform(data)
     return data
 
-# Streamlit App Layout
+# App Styling
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
 st.markdown(
     """
     <style>
-    /* Background */
-    .stApp {
-        background-color: #f4f8fc;
-    }
-
-    /* Header Styling */
-    .header-title {
-        font-size: 40px;
-        text-align: center;
-        font-weight: bold;
-        color: #004aad;
-    }
-
-    .header-subtitle {
-        font-size: 18px;
-        text-align: center;
-        font-style: italic;
-        color: #008cba;
-        margin-top: -10px;
-    }
-
-    /* Tabs Styling */
-    div[data-testid="stHorizontalBlock"] > div > div {
-        margin: auto;
-    }
-
-    /* Button Styling */
-    .stButton > button {
-        background-color: #004aad;
-        color: white;
-        border-radius: 10px;
-        padding: 8px 20px;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .stButton > button:hover {
-        background-color: #007bff;
-    }
-
-    /* Table Output Styling */
-    .dataframe {
-        margin: auto;
-        color: #004aad;
-        font-size: 16px;
-        font-weight: bold;
-    }
+        .stApp {
+            background-color: #f4f8fc;
+        }
+        .header-title {
+            font-size: 50px;
+            text-align: center;
+            font-weight: bold;
+            color: #004aad;
+        }
+        .header-subtitle {
+            font-size: 20px;
+            text-align: center;
+            font-style: italic;
+            color: #008cba;
+        }
+        div[data-testid="stHorizontalBlock"] > div > div {
+            margin: auto;
+        }
+        .stButton > button {
+            background-color: #004aad;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 25px;
+            font-size: 16px;
+        }
+        .stButton > button:hover {
+            background-color: #007bff;
+        }
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            padding: 10px;
+        }
+        .output-text {
+            font-size: 20px;
+            text-align: center;
+            color: #004aad;
+            font-weight: bold;
+        }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Header
+# Header Section
 col1, col2, col3 = st.columns([1, 6, 1])
 with col1:
-    st.image("logo/logo.png", width=150, use_container_width=False)
+    st.image("logo/logo.png", width=120)
 with col2:
     st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
     st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
@@ -116,7 +110,7 @@ with col3:
         unsafe_allow_html=True,
     )
 
-# Tabs for Models
+# Tabs with Enhanced Icons
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "🧠 Brain Tumor Detection",
     "🫁 Lung Cancer Detection",
@@ -125,20 +119,22 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "🎗️ Breast Cancer Detection"
 ])
 
-# Brain Tumor Tab
+# Brain Tumor Detection Tab
 with tab1:
+    st.image("logo/brain_tumor_icon.png", width=150)
     st.subheader("Brain Tumor Detection")
-    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"], key="brain_tumor_upload")
+    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"])
     if image_file:
         image = Image.open(image_file)
         st.image(image, caption="Uploaded Image", use_container_width=True)
         img_array = preprocess_image(image)
         prediction = brain_tumor_model.predict(img_array)
         predicted_class = brain_tumor_classes[np.argmax(prediction)]
-        st.markdown(f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>", unsafe_allow_html=True)
+        st.markdown(f"<div class='output-text'>Prediction: {predicted_class}</div>", unsafe_allow_html=True)
 
-# Lung Cancer Tab
+# Lung Cancer Detection Tab
 with tab2:
+    st.image("logo/lung_cancer_icon.png", width=150)
     st.subheader("Lung Cancer Detection")
     image_file = st.file_uploader("Upload Chest X-Ray", type=["jpg", "png", "jpeg"], key="lung_cancer_upload")
     if image_file:
@@ -147,10 +143,11 @@ with tab2:
         img_array = preprocess_image(image)
         prediction = lung_cancer_model.predict(img_array)
         predicted_class = lung_cancer_classes[np.argmax(prediction)]
-        st.markdown(f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>", unsafe_allow_html=True)
+        st.markdown(f"<div class='output-text'>Prediction: {predicted_class}</div>", unsafe_allow_html=True)
 
-# Eye Disease Tab
+# Eye Disease Detection Tab
 with tab3:
+    st.image("logo/eye_disease_icon.png", width=150)
     st.subheader("Eye Disease Detection")
     image_file = st.file_uploader("Upload Retinal Image", type=["jpg", "png", "jpeg"], key="eye_disease_upload")
     if image_file:
@@ -159,19 +156,15 @@ with tab3:
         img_array = preprocess_image(image)
         prediction = eye_disease_model.predict(img_array)
         predicted_class = eye_disease_classes[np.argmax(prediction)]
-        st.markdown(f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>", unsafe_allow_html=True)
+        st.markdown(f"<div class='output-text'>Prediction: {predicted_class}</div>", unsafe_allow_html=True)
 
-# Heart Disease Tab
+# Heart Disease Detection Tab
 with tab4:
+    st.image("logo/heart_disease_icon.png", width=150)
     st.subheader("Heart Disease Detection")
-    option = st.radio(
-        "Select Input Method",
-        options=["Manual Input", "Upload CSV"],
-        key="heart_disease_radio"
-    )
-
+    option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="heart_disease_radio")
     if option == "Manual Input":
-        # Manual input fields
+        # Manual input for heart disease features
         heart_inputs = [
             st.number_input("Age", min_value=0, max_value=120, value=50),
             st.selectbox("Sex (0 = Female, 1 = Male)", [0, 1]),
@@ -188,45 +181,38 @@ with tab4:
             st.selectbox("Thalassemia (0 = Normal, 1 = Fixed Defect, 2 = Reversible Defect)", [0, 1, 2])
         ]
 
-        # Preprocess and predict
+        # Preprocess input and predict
         heart_data = preprocess_tabular(heart_inputs)
         prediction = heart_disease_model.predict(heart_data)
         predicted_class = heart_disease_classes[int(prediction[0] > 0.5)]
 
-        # Display the result
-        st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#ff5722;'>{predicted_class}</span></h4>",
-            unsafe_allow_html=True
-        )
+        # Display prediction
+        st.markdown(f"<div class='output-text'>Prediction: {predicted_class}</div>", unsafe_allow_html=True)
 
     elif option == "Upload CSV":
-        uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"], key="heart_disease_csv")
-        if uploaded_file is not None:
+        uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
+        if uploaded_file:
             df = pd.read_csv(uploaded_file)
             required_columns = [
                 "age", "sex", "cp", "trestbps", "chol", "fbs",
                 "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal"
             ]
-            if all(col in df.columns for col in required_columns):  # Check for required columns
-                heart_data = df[required_columns].values  # Extract features
+            if all(col in df.columns for col in required_columns):
+                heart_data = df[required_columns].values
                 predictions = heart_disease_model.predict(heart_data)
                 predicted_classes = [heart_disease_classes[int(pred > 0.5)] for pred in predictions]
                 df["Prediction"] = predicted_classes
-
                 # Display the results
                 st.markdown("<h4 style='text-align: center;'>Batch Predictions:</h4>", unsafe_allow_html=True)
                 st.dataframe(df)
             else:
-                st.error("The uploaded CSV does not have the required columns. Please check your file and try again.")
+                st.error("The uploaded CSV does not have the required columns. Please check your file.")
 
-# Breast Cancer Tab
+# Breast Cancer Detection Tab
 with tab5:
+    st.image("logo/breast_cancer_icon.png", width=150)
     st.subheader("Breast Cancer Detection")
-    option = st.radio(
-        "Select Input Method",
-        options=["Manual Input", "Upload CSV"],
-        key="breast_cancer_radio"
-    )
+    option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="breast_cancer_radio")
 
     if option == "Manual Input":
         # Manual input for all 30 features
@@ -269,16 +255,13 @@ with tab5:
         predicted_class = breast_cancer_classes[int(prediction[0][0] > 0.5)]  # Use 0.5 threshold
 
         # Display the result
-        st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
-            unsafe_allow_html=True
-        )
+        st.markdown(f"<div class='output-text'>Prediction: {predicted_class}</div>", unsafe_allow_html=True)
 
     elif option == "Upload CSV":
         uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"], key="breast_cancer_csv")
-        if uploaded_file is not None:
+        if uploaded_file:
             df = pd.read_csv(uploaded_file)
-            if df.shape[1] == 30:  # Ensure the correct number of features
+            if df.shape[1] == 30:  # Ensure correct number of features
                 breast_data = breast_cancer_scaler.transform(df)
                 predictions = breast_cancer_model.predict(breast_data)
                 predicted_classes = [breast_cancer_classes[int(pred[0] > 0.5)] for pred in predictions]
@@ -288,7 +271,7 @@ with tab5:
                 st.markdown("<h4 style='text-align: center;'>Batch Predictions:</h4>", unsafe_allow_html=True)
                 st.dataframe(df)
             else:
-                st.error("The uploaded CSV does not have the required 30 features. Please check your file and try again.")
+                st.error("The uploaded CSV does not have the required 30 features. Please check your file.")
 
 # Footer Styling
 st.markdown(
