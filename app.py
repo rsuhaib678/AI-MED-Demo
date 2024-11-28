@@ -45,222 +45,237 @@ def preprocess_tabular(data, scaler=None):
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
 
 # CSS Styling for Improved Layout
-# CSS Styling for Improved Layout
 st.markdown(
     """
     <style>
-    /* Background */
+    /* General Background */
     .stApp {
         background-color: #f4f8fc;
         padding: 20px;
     }
 
-    /* Header Styling */
+    /* Header Section */
     .header-container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 10px 30px;
+        align-items: center;
+        padding: 20px;
+        background-color: #f4f8fc;
     }
 
-    .header-logo {
-        width: 200px; /* Increased size */
+    .header-logo img {
+        width: 180px; /* Enlarged logo */
         height: auto;
     }
 
-    .header-title {
-        font-size: 60px; /* Bigger heading */
-        font-weight: bold;
+    .header-text h1 {
+        font-size: 60px; /* Larger title font */
         color: #004aad;
+        font-weight: bold;
         text-align: center;
-        font-family: 'Arial', sans-serif; /* Interesting font */
+        margin: 0;
     }
 
-    .header-subtitle-container {
+    .header-right h3 {
+        font-size: 20px;
+        font-style: italic;
+        color: #0077b6;
+        margin-bottom: 10px;
         text-align: right;
     }
 
-    .header-subtitle {
-        font-size: 24px;
-        color: #0077b6;
-        font-style: italic;
-        margin-bottom: 5px;
-    }
-
-    .header-link {
+    .header-right a {
         font-size: 18px;
+        font-weight: bold;
         color: #004aad;
         text-decoration: none;
-        font-weight: bold;
+        text-align: right;
     }
 
-    .header-link:hover {
+    .header-right a:hover {
         color: #0077b6;
         text-decoration: underline;
     }
 
-    /* Tabs Styling */
-    .stTabs [role="tab"] {
-        font-size: 22px; /* Bigger tab headings */
-        font-weight: bold;
-        padding: 10px 20px;
-        border-radius: 15px; /* Rounded tabs */
-        background-color: #004aad; /* Tab background */
-        color: white; /* Tab text color */
-        margin: 0 10px;
-        text-align: center;
-    }
-
-    .stTabs [role="tab"][aria-selected="true"] {
-        background-color: #0077b6; /* Active tab background */
-        color: white;
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    /* Tab Content Center Alignment */
-    .content-area {
-        margin: auto;
-        max-width: 90%;
-        text-align: center; /* Center align content */
-    }
-
-    .tab-image {
-        display: block;
-        margin: 0 auto;
-        width: 100px; /* Reduced size */
-        height: auto;
-    }
-
-    /* Input Headings and Form Fields */
-    .input-heading {
-        font-size: 28px; /* Bigger input heading */
-        font-weight: bold;
-        color: #004aad;
-        text-align: center;
-    }
-
-    /* Footer Styling */
+    /* Footer */
     footer {
         text-align: center;
         font-size: 14px;
         color: #555;
         padding: 10px;
     }
-
-    /* Dark Mode Compatibility */
-    @media (prefers-color-scheme: dark) {
-        .stApp {
-            background-color: #2b2b2b;
-            color: #f4f4f4;
-        }
-
-        .header-title, .header-subtitle, .header-link, .input-heading {
-            color: #80d4ff; /* Light text color for dark mode */
-        }
-
-        .stTabs [role="tab"] {
-            background-color: #3b3b3b;
-            color: #f4f4f4;
-        }
-
-        .stTabs [role="tab"][aria-selected="true"] {
-            background-color: #0077b6;
-            color: white;
-        }
-    }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-
 # Header Section
-col1, col2, col3 = st.columns([1, 6, 1])
-with col1:
-    st.image("logo/logo.png", width=120)
-with col2:
-    st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
-    st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
-with col3:
+st.markdown(
+    """
+    <div class="header-container">
+        <div class="header-logo">
+            <img src="logo/logo.png" alt="AI-MED Logo">
+        </div>
+        <div class="header-text">
+            <h1>Welcome to AI-MED Models UK</h1>
+        </div>
+        <div class="header-right">
+            <h3>Transforming Healthcare with AI</h3>
+            <a href="http://www.aimedmodels.com" target="_blank">🌐 Visit AI-MED Models</a>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Tabs Setup
+tabs = [
+    {"label": "Brain Tumor Detection", "icon": "logo/brain_tumor_icon.png"},
+    {"label": "Lung Cancer Detection", "icon": "logo/lung_cancer_icon.png"},
+    {"label": "Eye Disease Detection", "icon": "logo/eye_disease_icon.png"},
+    {"label": "Heart Disease Detection", "icon": "logo/heart_disease_icon.png"},
+    {"label": "Breast Cancer Detection", "icon": "logo/breast_cancer_icon.png"},
+]
+
+# CSS Styling for Tabs
+st.markdown(
+    """
+    <style>
+    /* Tab Container */
+    .custom-tabs {
+        display: flex;
+        justify-content: center; /* Center-align the tabs */
+        gap: 20px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .tab {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 15px;
+        width: 180px;
+        border-radius: 12px;
+        cursor: pointer;
+        text-align: center;
+        background-color: #f4f8fc;
+        transition: all 0.3s ease;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab img {
+        width: 60px; /* Resized icons */
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .tab span {
+        font-size: 18px; /* Enlarged tab text */
+        font-weight: bold;
+        color: #004aad;
+    }
+
+    .tab:hover {
+        background-color: #0077b6;
+        transform: scale(1.05);
+        color: white;
+    }
+
+    .tab.active {
+        background-color: #004aad;
+        color: white;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab.active img {
+        filter: brightness(0) invert(1); /* Invert icon colors for active tab */
+    }
+
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Tabs HTML Rendering
+selected_tab = st.session_state.get("selected_tab", 0)  # Default to first tab
+st.markdown('<div class="custom-tabs">', unsafe_allow_html=True)
+
+for index, tab in enumerate(tabs):
+    active_class = "active" if index == selected_tab else ""
     st.markdown(
-        """
-        <div style="text-align: center;">
-            <a href="http://www.aimedmodels.com" target="_blank" class="web-link">
-                🌐 Visit AI-MED Models
-            </a>
+        f"""
+        <div class="tab {active_class}" onclick="window.location.href='#tab-{index}'">
+            <img src="{tab['icon']}" alt="{tab['label']} Icon">
+            <span>{tab['label']}</span>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-st.markdown('<div class="content-area">', unsafe_allow_html=True)
-
-# Tabs with Enhanced Icons
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "🧠 Brain Tumor Detection",
-    "🫁 Lung Cancer Detection",
-    "👁️ Eye Disease Detection",
-    "💗 Heart Disease Detection",
-    "🎗️ Breast Cancer Detection"
-])
-
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Brain Tumor Detection Tab
-with tab1:
-    st.image("logo/brain_tumor_icon.png", width=120, use_column_width=False)
+if selected_tab == 0:
+    st.markdown('<div id="tab-0" class="content-area">', unsafe_allow_html=True)
+    st.image("logo/brain_tumor_icon.png", width=100)
     st.subheader("Brain Tumor Detection")
-    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"])
+    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"], key="brain_tumor_upload")
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
         img_array = preprocess_image(image)
         prediction = brain_tumor_model.predict(img_array)
         predicted_class = brain_tumor_classes[np.argmax(prediction)]
         st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            f"<h4 style='text-align: center; font-size: 24px; color: #0077b6;'>Prediction: {predicted_class}</h4>",
             unsafe_allow_html=True
         )
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Lung Cancer Detection Tab
-with tab2:
-    st.image("logo/lung_cancer_icon.png", width=120, use_column_width=False)
+if selected_tab == 1:
+    st.markdown('<div id="tab-1" class="content-area">', unsafe_allow_html=True)
+    st.image("logo/lung_cancer_icon.png", width=100)
     st.subheader("Lung Cancer Detection")
     image_file = st.file_uploader("Upload Chest X-Ray", type=["jpg", "png", "jpeg"], key="lung_cancer_upload")
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
         img_array = preprocess_image(image)
         prediction = lung_cancer_model.predict(img_array)
         predicted_class = lung_cancer_classes[np.argmax(prediction)]
         st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            f"<h4 style='text-align: center; font-size: 24px; color: #0077b6;'>Prediction: {predicted_class}</h4>",
             unsafe_allow_html=True
         )
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Eye Disease Detection Tab
-with tab3:
-    st.image("logo/eye_disease_icon.png", width=120, use_column_width=False)
+if selected_tab == 2:
+    st.markdown('<div id="tab-2" class="content-area">', unsafe_allow_html=True)
+    st.image("logo/eye_disease_icon.png", width=100)
     st.subheader("Eye Disease Detection")
     image_file = st.file_uploader("Upload Retinal Image", type=["jpg", "png", "jpeg"], key="eye_disease_upload")
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_container_width=True)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
         img_array = preprocess_image(image)
         prediction = eye_disease_model.predict(img_array)
         predicted_class = eye_disease_classes[np.argmax(prediction)]
         st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            f"<h4 style='text-align: center; font-size: 24px; color: #0077b6;'>Prediction: {predicted_class}</h4>",
             unsafe_allow_html=True
         )
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Heart Disease Detection Tab
-with tab4:
-    st.image("logo/heart_disease_icon.png", width=120, use_column_width=False)
+if selected_tab == 3:
+    st.markdown('<div id="tab-3" class="content-area">', unsafe_allow_html=True)
+    st.image("logo/heart_disease_icon.png", width=100)
     st.subheader("Heart Disease Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="heart_disease_radio")
     if option == "Manual Input":
-        # Manual input for heart disease features
         heart_inputs = [
             st.number_input("Age", min_value=0, max_value=120, value=50),
             st.selectbox("Sex (0 = Female, 1 = Male)", [0, 1]),
@@ -277,14 +292,11 @@ with tab4:
             st.selectbox("Thalassemia (0 = Normal, 1 = Fixed Defect, 2 = Reversible Defect)", [0, 1, 2])
         ]
 
-        # Preprocess input and predict
         heart_data = preprocess_tabular(heart_inputs)
         prediction = heart_disease_model.predict(heart_data)
         predicted_class = heart_disease_classes[int(prediction[0] > 0.5)]
-
-        # Display prediction
         st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            f"<h4 style='text-align: center; font-size: 24px; color: #0077b6;'>Prediction: {predicted_class}</h4>",
             unsafe_allow_html=True
         )
     elif option == "Upload CSV":
@@ -303,10 +315,12 @@ with tab4:
                 st.dataframe(df)
             else:
                 st.error("The uploaded CSV does not have the required columns. Please check your file.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Breast Cancer Detection Tab
-with tab5:
-    st.image("logo/breast_cancer_icon.png", width=120, use_column_width=False)
+if selected_tab == 4:
+    st.markdown('<div id="tab-4" class="content-area">', unsafe_allow_html=True)
+    st.image("logo/breast_cancer_icon.png", width=100)
     st.subheader("Breast Cancer Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="breast_cancer_radio")
 
@@ -352,7 +366,7 @@ with tab5:
 
         # Display the result
         st.markdown(
-            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            f"<h4 style='text-align: center; font-size: 24px; color: #0077b6;'>Prediction: {predicted_class}</h4>",
             unsafe_allow_html=True
         )
 
@@ -367,18 +381,33 @@ with tab5:
                 df["Prediction"] = predicted_classes
 
                 # Display the results
-                st.markdown("<h4 style='text-align: center;'>Batch Predictions:</h4>", unsafe_allow_html=True)
+                st.markdown("<h4 style='text-align: center; font-size: 24px;'>Batch Predictions:</h4>", unsafe_allow_html=True)
                 st.dataframe(df)
             else:
                 st.error("The uploaded CSV does not have the required 30 features. Please check your file.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer Styling
+# Footer Styling and Content
 st.markdown(
     """
-    <footer style="text-align: center; font-size: 14px; color: #555; padding: 10px;">
-        &copy; 2024 AI-MED Models UK | Transforming Healthcare with AI
+    <footer style="
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        padding: 20px;
+        margin-top: 40px;
+        background-color: #f4f8fc;
+        border-top: 2px solid #004aad;
+    ">
+        <p style="margin: 0; font-weight: bold;">
+            &copy; 2024 AI-MED Models UK
+        </p>
+        <p style="margin: 0; font-style: italic;">
+            Transforming Healthcare with AI
+        </p>
+        <p style="margin: 0;">
+            Visit us at <a href="http://www.aimedmodels.com" target="_blank" style="color: #0077b6; text-decoration: none;">www.aimedmodels.com</a>
+        </p>
     </footer>
     """,
     unsafe_allow_html=True,
