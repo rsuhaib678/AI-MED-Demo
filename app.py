@@ -126,7 +126,7 @@ st.markdown(
 # Header Section
 col1, col2, col3 = st.columns([1, 6, 1])
 with col1:
-    st.image("logo/logo.png", width=180)
+    st.image("logo/logo.png", width=480)
 with col2:
     st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
     st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
@@ -156,7 +156,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 
 # Brain Tumor Detection Tab
 with tab1:
-    st.image("logo/brain_tumor_icon.png", width=60, use_column_width=False)
+    st.image("logo/brain_tumor_icon.png", use_column_width=True)
     st.subheader("Brain Tumor Detection")
     image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"])
     if image_file:
@@ -172,7 +172,7 @@ with tab1:
 
 # Lung Cancer Detection Tab
 with tab2:
-    st.image("logo/lung_cancer_icon.png", width=60, use_column_width=False)
+    st.image("logo/lung_cancer_icon.png", use_column_width=True)
     st.subheader("Lung Cancer Detection")
     image_file = st.file_uploader("Upload Chest X-Ray", type=["jpg", "png", "jpeg"], key="lung_cancer_upload")
     if image_file:
@@ -188,7 +188,7 @@ with tab2:
 
 # Eye Disease Detection Tab
 with tab3:
-    st.image("logo/eye_disease_icon.png", width=60, use_column_width=False)
+    st.image("logo/eye_disease_icon.png", use_column_width=True)
     st.subheader("Eye Disease Detection")
     image_file = st.file_uploader("Upload Retinal Image", type=["jpg", "png", "jpeg"], key="eye_disease_upload")
     if image_file:
@@ -204,7 +204,7 @@ with tab3:
 
 # Heart Disease Detection Tab
 with tab4:
-    st.image("logo/heart_disease_icon.png", width=60, use_column_width=False)
+    st.image("logo/heart_disease_icon.png", use_column_width=True)
     st.subheader("Heart Disease Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="heart_disease_radio")
     if option == "Manual Input":
@@ -254,7 +254,7 @@ with tab4:
 
 # Breast Cancer Detection Tab
 with tab5:
-    st.image("logo/breast_cancer_icon.png", width=60, use_column_width=False)
+    st.image("logo/breast_cancer_icon.png", use_column_width=True)
     st.subheader("Breast Cancer Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="breast_cancer_radio")
 
