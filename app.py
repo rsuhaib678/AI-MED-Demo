@@ -133,7 +133,7 @@ with col2:
 with col3:
     st.markdown(
         """
-        <div style="text-align: center;">
+        <div style="text-align: left;">
             <a href="http://www.aimedmodels.com" target="_blank" class="web-link">
                 🌐 Visit AI-MED Models
             </a>
