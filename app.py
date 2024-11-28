@@ -46,50 +46,92 @@ st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide
 st.markdown(
     """
     <style>
-        .stApp {
-            background-color: #f4f8fc;
-        }
-        .header-title {
-            font-size: 50px;
-            text-align: center;
-            font-weight: bold;
-            color: #004aad;
-        }
-        .header-subtitle {
-            font-size: 20px;
-            text-align: center;
-            font-style: italic;
-            color: #008cba;
-        }
-        div[data-testid="stHorizontalBlock"] > div > div {
-            margin: auto;
-        }
-        .stButton > button {
-            background-color: #004aad;
-            color: white;
-            border-radius: 10px;
-            padding: 10px 25px;
-            font-size: 16px;
-        }
-        .stButton > button:hover {
-            background-color: #007bff;
-        }
-        footer {
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-            padding: 10px;
-        }
-        .output-text {
-            font-size: 20px;
-            text-align: center;
-            color: #004aad;
-            font-weight: bold;
-        }
+    /* General Background */
+    .stApp {
+        background-color: #f4f8fc;
+    }
+
+    /* Header Styling */
+    .header-title {
+        font-size: 60px; /* Increased for larger heading */
+        text-align: center;
+        font-weight: bold;
+        color: #004aad;
+        margin-bottom: 10px; /* Reduce spacing */
+    }
+
+    .header-subtitle {
+        font-size: 24px; /* Adjusted subtitle size */
+        text-align: center;
+        font-style: italic;
+        color: #008cba;
+        margin-top: -10px;
+        margin-bottom: 30px;
+    }
+
+    /* Logo Styling */
+    .header-logo {
+        width: 180px; /* Increase logo size */
+        margin: auto;
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    /* Link Styling */
+    .web-link {
+        font-size: 20px; /* Increased font size */
+        text-align: center;
+        color: #004aad;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .web-link:hover {
+        color: #007bff;
+        text-decoration: underline;
+    }
+
+    /* Tabs Styling */
+    div[data-testid="stHorizontalBlock"] > div > div {
+        margin: auto;
+        text-align: center;
+    }
+
+    /* Tab Heading Styling */
+    div[data-testid="stHorizontalBlock"] > div {
+        font-size: 18px; /* Make tab labels larger */
+        font-weight: bold;
+    }
+
+    /* Content Area */
+    .content-area {
+        padding: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    /* Output Text */
+    .output-text {
+        font-size: 22px;
+        text-align: center;
+        color: #007bff;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    /* Footer Styling */
+    footer {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        padding: 10px;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 # Header Section
 col1, col2, col3 = st.columns([1, 6, 1])
@@ -102,13 +144,15 @@ with col3:
     st.markdown(
         """
         <div style="text-align: center;">
-            <a href="http://www.aimedmodels.com" target="_blank" style="font-size: 18px; color: #004aad;">
-                Visit AI-MED Models
+            <a href="http://www.aimedmodels.com" target="_blank" class="web-link">
+                🌐 Visit AI-MED Models
             </a>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+st.markdown('<div class="content-area">', unsafe_allow_html=True)
 
 # Tabs with Enhanced Icons
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
@@ -272,6 +316,8 @@ with tab5:
                 st.dataframe(df)
             else:
                 st.error("The uploaded CSV does not have the required 30 features. Please check your file.")
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer Styling
 st.markdown(
