@@ -124,9 +124,9 @@ st.markdown(
 
 
 # Header Section
-col1, col2, col3 = st.columns([1, 6, 1])
+col1, col2, col3 = st.columns([1, 1, 1])
 with col1:
-    st.image("logo/logo.png", width=720)
+    st.image("logo/logo.png", width=1080)
 with col2:
     st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
     st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
