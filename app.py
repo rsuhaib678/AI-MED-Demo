@@ -43,11 +43,12 @@ def preprocess_tabular(data, scaler=None):
 
 # App Styling
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
+
 # CSS Styling for Improved Layout
 st.markdown(
     """
     <style>
-    /* Background */
+    /* Global Styling */
     .stApp {
         background-color: #f4f8fc;
         padding: 20px;
@@ -55,57 +56,72 @@ st.markdown(
 
     /* Header Styling */
     .header-title {
-        font-size: 50px;
+        font-size: 60px;
         text-align: center;
         font-weight: bold;
         color: #004aad;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 
     .header-subtitle {
-        font-size: 20px;
+        font-size: 22px;
         text-align: center;
         font-style: italic;
+        color: #008cba;
+        margin-top: -10px;
+        text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* Website Link */
+    .website-link {
+        font-size: 18px;
+        color: #004aad;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .website-link:hover {
         color: #0077b6;
-        margin-top: -15px;
+        text-decoration: underline;
     }
 
     /* Tabs Styling */
     div[data-testid="stHorizontalBlock"] > div {
-        justify-content: center; /* Center align the tabs */
+        justify-content: center; /* Center align tabs */
     }
 
     .stTabs [role="tab"] {
-        font-size: 18px; /* Bigger tab headings */
+        font-size: 18px;
         font-weight: bold;
-        color: #004aad;
-        padding: 8px 20px;
-        border-radius: 15px; /* Rounded tabs */
+        color: #ffffff;
+        background-color: #004aad;
+        padding: 12px 20px;
+        margin: 5px;
+        border-radius: 50px; /* Rounded tabs */
     }
 
     .stTabs [role="tab"][aria-selected="true"] {
-        background-color: #004aad; /* Active tab background */
-        color: white;
+        background-color: #0077b6; /* Active tab color */
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
     }
 
-    /* Central alignment of tab contents */
+    /* Tab Icon and Title Alignment */
+    .tab-icon {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+    }
+
+    /* Center Alignment for Tab Content */
     .content-area {
         margin: auto;
         max-width: 90%;
-    }
-
-    /* Button Styling */
-    .stButton > button {
-        background-color: #004aad;
-        color: white;
-        border-radius: 10px;
-        padding: 10px 30px;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .stButton > button:hover {
-        background-color: #007bff;
+        padding: 20px;
     }
 
     /* Footer Styling */
@@ -121,37 +137,48 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
-
-# Header Section
+# Header Layout
 col1, col2, col3 = st.columns([1, 6, 1])
 with col1:
-    st.image("logo/logo.png", width=300)
+    st.image("logo/logo.png", width=200)  # Increased logo size
 with col2:
     st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
     st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
 with col3:
     st.markdown(
         """
-        <div style="text-align: center;">
-            <a href="http://www.aimedmodels.com" target="_blank" class="web-link">
-                🌐 Visit AI-MED Models
-            </a>
-        </div>
+        <a href="http://www.aimedmodels.com" target="_blank" class="website-link">
+            🌐 Visit AI-MED Models
+        </a>
         """,
         unsafe_allow_html=True,
     )
 
+# Content Area Wrapper
 st.markdown('<div class="content-area">', unsafe_allow_html=True)
 
-# Tabs with Enhanced Icons
+# Tabs with Custom Icons
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "🧠 Brain Tumor Detection",
-    "🫁 Lung Cancer Detection",
-    "👁️ Eye Disease Detection",
-    "💗 Heart Disease Detection",
-    "🎗️ Breast Cancer Detection"
+    f'<img class="tab-icon" src="logo/brain_tumor_icon.png" alt="Brain Tumor Icon"> Brain Tumor Detection',
+    f'<img class="tab-icon" src="logo/lung_cancer_icon.png" alt="Lung Cancer Icon"> Lung Cancer Detection',
+    f'<img class="tab-icon" src="logo/eye_disease_icon.png" alt="Eye Disease Icon"> Eye Disease Detection',
+    f'<img class="tab-icon" src="logo/heart_disease_icon.png" alt="Heart Disease Icon"> Heart Disease Detection',
+    f'<img class="tab-icon" src="logo/breast_cancer_icon.png" alt="Breast Cancer Icon"> Breast Cancer Detection'
 ])
+
+# Ensure proper rendering of tabs with custom icons
+st.markdown(
+    """
+    <style>
+    .stTabs [role="tab"] img.tab-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 8px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Brain Tumor Detection Tab
 with tab1:
