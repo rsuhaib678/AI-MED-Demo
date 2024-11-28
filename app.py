@@ -41,224 +41,174 @@ def preprocess_tabular(data, scaler=None):
         data = scaler.transform(data)
     return data
 
-# Streamlit Page Configuration
+# App Styling
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
 
-# CSS Styling
+# CSS Styling for Improved Layout
 st.markdown(
     """
     <style>
-    /* General Background */
+    /* Background */
     .stApp {
         background-color: #f4f8fc;
         padding: 20px;
     }
 
-    /* Header Section */
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px 0;
-    }
-
-    .header-logo {
-        width: 150px;
-        margin-right: 20px;
-    }
-
-    .header-text {
-        text-align: center;
-    }
-
+    /* Header Styling */
     .header-title {
-        font-size: 60px;
-        color: #004aad;
+        font-size: 50px;
+        text-align: center;
         font-weight: bold;
+        color: #004aad;
+        margin-bottom: 10px;
     }
 
     .header-subtitle {
-        font-size: 24px;
+        font-size: 20px;
+        text-align: center;
         font-style: italic;
-        color: #008cba;
-        margin-top: -10px;
-    }
-
-    .header-link {
-        font-size: 18px;
-        color: #004aad;
-        text-decoration: none;
-        font-weight: bold;
-        margin-top: 15px;
-    }
-
-    .header-link:hover {
         color: #0077b6;
-        text-decoration: underline;
+        margin-top: -15px;
     }
 
-    /* Tabs */
-    .custom-tabs {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 30px;
+    /* Tabs Styling */
+    div[data-testid="stHorizontalBlock"] > div {
+        justify-content: center; /* Center align the tabs */
     }
 
-    .tab {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+    .stTabs [role="tab"] {
+        font-size: 18px; /* Bigger tab headings */
+        font-weight: bold;
+        color: #004aad;
+        padding: 8px 20px;
+        border-radius: 15px; /* Rounded tabs */
+    }
+
+    .stTabs [role="tab"][aria-selected="true"] {
+        background-color: #004aad; /* Active tab background */
+        color: white;
+    }
+
+    /* Central alignment of tab contents */
+    .content-area {
+        margin: auto;
+        max-width: 90%;
+    }
+
+    /* Button Styling */
+    .stButton > button {
         background-color: #004aad;
         color: white;
-        border-radius: 12px;
-        padding: 15px;
-        width: 150px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .tab:hover {
-        background-color: #0077b6;
-        transform: scale(1.1);
-    }
-
-    .tab.active {
-        background-color: #ff5722;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .tab img {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 8px;
-    }
-
-    /* Prediction Output */
-    .output-text {
-        font-size: 32px;
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-size: 16px;
         font-weight: bold;
-        color: #ff5722;
-        text-align: center;
-        padding: 20px;
-        border: 3px solid #004aad;
-        border-radius: 12px;
-        background-color: #f0f8ff;
-        width: 80%;
-        margin: 30px auto;
     }
 
-    /* Footer */
+    .stButton > button:hover {
+        background-color: #007bff;
+    }
+
+    /* Footer Styling */
     footer {
         text-align: center;
         font-size: 14px;
         color: #555;
         padding: 10px;
+        margin-top: 20px;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
+
 # Header Section
-st.markdown(
-    """
-    <div class="header-container">
-        <img src="logo/logo.png" alt="AI-MED Logo" class="header-logo">
-        <div class="header-text">
-            <div class="header-title">AI-MED Models UK</div>
-            <div class="header-subtitle">Transforming Healthcare with AI</div>
-            <a href="http://www.aimedmodels.com" target="_blank" class="header-link">🌐 Visit AI-MED Models</a>
+col1, col2, col3 = st.columns([1, 6, 1])
+with col1:
+    st.image("logo/logo.png", width=120)
+with col2:
+    st.markdown('<div class="header-title">Welcome to<br>AI-MED Models UK</div>', unsafe_allow_html=True)
+    st.markdown('<div class="header-subtitle">Transforming Healthcare with AI</div>', unsafe_allow_html=True)
+with col3:
+    st.markdown(
+        """
+        <div style="text-align: center;">
+            <a href="http://www.aimedmodels.com" target="_blank" class="web-link">
+                🌐 Visit AI-MED Models
+            </a>
         </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        unsafe_allow_html=True,
+    )
 
-# Tabs Setup
-tabs = [
-    {"label": "Brain Tumor Detection", "icon": "logo/brain_tumor_icon.png"},
-    {"label": "Lung Cancer Detection", "icon": "logo/lung_cancer_icon.png"},
-    {"label": "Eye Disease Detection", "icon": "logo/eye_disease_icon.png"},
-    {"label": "Heart Disease Detection", "icon": "logo/heart_disease_icon.png"},
-    {"label": "Breast Cancer Detection", "icon": "logo/breast_cancer_icon.png"},
-]
+st.markdown('<div class="content-area">', unsafe_allow_html=True)
 
-# Render Tabs
-selected_tab = st.session_state.get("selected_tab", 0)  # Default to first tab
-st.markdown('<div class="custom-tabs">', unsafe_allow_html=True)
+# Tabs with Enhanced Icons
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "🧠 Brain Tumor Detection",
+    "🫁 Lung Cancer Detection",
+    "👁️ Eye Disease Detection",
+    "💗 Heart Disease Detection",
+    "🎗️ Breast Cancer Detection"
+])
 
-for index, tab in enumerate(tabs):
-    is_active = "active" if index == selected_tab else ""
-    tab_html = f"""
-    <div class="tab {is_active}" onclick="window.location.href='#tab-{index}'">
-        <img src="{tab['icon']}" alt="{tab['label']} Icon">
-        <span>{tab['label']}</span>
-    </div>
-    """
-    st.markdown(tab_html, unsafe_allow_html=True)
 
 # Brain Tumor Detection Tab
-if selected_tab == 0:
-    st.markdown('<div id="tab-0" class="content-container">', unsafe_allow_html=True)
+with tab1:
+    st.image("logo/brain_tumor_icon.png", width=150, use_column_width=False)
     st.subheader("Brain Tumor Detection")
-    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"], key="brain_tumor_upload")
+    image_file = st.file_uploader("Upload MRI Image", type=["jpg", "png", "jpeg"])
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
         img_array = preprocess_image(image)
         prediction = brain_tumor_model.predict(img_array)
         predicted_class = brain_tumor_classes[np.argmax(prediction)]
-        st.markdown(f"""
-            <div class='prediction-output'>
-                Brain Tumor Prediction: <strong>{predicted_class}</strong>
-            </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(
+            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            unsafe_allow_html=True
+        )
 
 # Lung Cancer Detection Tab
-if selected_tab == 1:
-    st.markdown('<div id="tab-1" class="content-container">', unsafe_allow_html=True)
+with tab2:
+    st.image("logo/lung_cancer_icon.png", width=150, use_column_width=False)
     st.subheader("Lung Cancer Detection")
     image_file = st.file_uploader("Upload Chest X-Ray", type=["jpg", "png", "jpeg"], key="lung_cancer_upload")
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
         img_array = preprocess_image(image)
         prediction = lung_cancer_model.predict(img_array)
         predicted_class = lung_cancer_classes[np.argmax(prediction)]
-        st.markdown(f"""
-            <div class='prediction-output'>
-                Lung Cancer Prediction: <strong>{predicted_class}</strong>
-            </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(
+            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            unsafe_allow_html=True
+        )
 
 # Eye Disease Detection Tab
-if selected_tab == 2:
-    st.markdown('<div id="tab-2" class="content-container">', unsafe_allow_html=True)
+with tab3:
+    st.image("logo/eye_disease_icon.png", width=150, use_column_width=False)
     st.subheader("Eye Disease Detection")
     image_file = st.file_uploader("Upload Retinal Image", type=["jpg", "png", "jpeg"], key="eye_disease_upload")
     if image_file:
         image = Image.open(image_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
+        st.image(image, caption="Uploaded Image", use_container_width=True)
         img_array = preprocess_image(image)
         prediction = eye_disease_model.predict(img_array)
         predicted_class = eye_disease_classes[np.argmax(prediction)]
-        st.markdown(f"""
-            <div class='prediction-output'>
-                Eye Disease Prediction: <strong>{predicted_class}</strong>
-            </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown(
+            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            unsafe_allow_html=True
+        )
 
 # Heart Disease Detection Tab
-if selected_tab == 3:
-    st.markdown('<div id="tab-3" class="content-container">', unsafe_allow_html=True)
+with tab4:
+    st.image("logo/heart_disease_icon.png", width=150, use_column_width=False)
     st.subheader("Heart Disease Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="heart_disease_radio")
     if option == "Manual Input":
+        # Manual input for heart disease features
         heart_inputs = [
             st.number_input("Age", min_value=0, max_value=120, value=50),
             st.selectbox("Sex (0 = Female, 1 = Male)", [0, 1]),
@@ -274,14 +224,17 @@ if selected_tab == 3:
             st.selectbox("Number of Major Vessels (0-3)", [0, 1, 2, 3]),
             st.selectbox("Thalassemia (0 = Normal, 1 = Fixed Defect, 2 = Reversible Defect)", [0, 1, 2])
         ]
+
+        # Preprocess input and predict
         heart_data = preprocess_tabular(heart_inputs)
         prediction = heart_disease_model.predict(heart_data)
         predicted_class = heart_disease_classes[int(prediction[0] > 0.5)]
-        st.markdown(f"""
-            <div class='prediction-output'>
-                Heart Disease Prediction: <strong>{predicted_class}</strong>
-            </div>
-        """, unsafe_allow_html=True)
+
+        # Display prediction
+        st.markdown(
+            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            unsafe_allow_html=True
+        )
     elif option == "Upload CSV":
         uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
         if uploaded_file:
@@ -298,11 +251,10 @@ if selected_tab == 3:
                 st.dataframe(df)
             else:
                 st.error("The uploaded CSV does not have the required columns. Please check your file.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
 # Breast Cancer Detection Tab
-if selected_tab == 4:
-    st.markdown('<div id="tab-4" class="content-container">', unsafe_allow_html=True)
+with tab5:
+    st.image("logo/breast_cancer_icon.png", width=150, use_column_width=False)
     st.subheader("Breast Cancer Detection")
     option = st.radio("Select Input Method", ["Manual Input", "Upload CSV"], key="breast_cancer_radio")
 
@@ -347,11 +299,10 @@ if selected_tab == 4:
         predicted_class = breast_cancer_classes[int(prediction[0][0] > 0.5)]  # Use 0.5 threshold
 
         # Display the result
-        st.markdown(f"""
-            <div class='prediction-output'>
-                Breast Cancer Prediction: <strong>{predicted_class}</strong>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            f"<h4 style='text-align: center;'>Prediction: <span style='color:#007bff;'>{predicted_class}</span></h4>",
+            unsafe_allow_html=True
+        )
 
     elif option == "Upload CSV":
         uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"], key="breast_cancer_csv")
@@ -368,22 +319,15 @@ if selected_tab == 4:
                 st.dataframe(df)
             else:
                 st.error("The uploaded CSV does not have the required 30 features. Please check your file.")
-    st.markdown('</div>', unsafe_allow_html=True)
 
-# Footer Section
-st.markdown("""
-    <footer style="
-        text-align: center; 
-        font-size: 14px; 
-        color: #555; 
-        padding: 20px 0; 
-        margin-top: 40px; 
-        background-color: #f4f4f4; 
-        border-top: 1px solid #ccc;">
-        <strong>&copy; 2024 AI-MED Models UK</strong> | <span style="color: #004aad;">Transforming Healthcare with AI</span>
-        <br>
-        <a href="http://www.aimedmodels.com" target="_blank" style="color: #0077b6; text-decoration: none;">
-            🌐 Visit Our Website
-        </a>
+st.markdown('</div>', unsafe_allow_html=True)
+
+# Footer Styling
+st.markdown(
+    """
+    <footer style="text-align: center; font-size: 14px; color: #555; padding: 10px;">
+        &copy; 2024 AI-MED Models UK | Transforming Healthcare with AI
     </footer>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True,
+)
