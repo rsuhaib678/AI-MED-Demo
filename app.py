@@ -43,80 +43,69 @@ def preprocess_tabular(data, scaler=None):
 
 # App Styling
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
+# CSS Styling for Improved Layout
 st.markdown(
     """
     <style>
-    /* General Background */
+    /* Background */
     .stApp {
         background-color: #f4f8fc;
+        padding: 20px;
     }
 
     /* Header Styling */
     .header-title {
-        font-size: 60px; /* Increased for larger heading */
+        font-size: 50px;
         text-align: center;
         font-weight: bold;
         color: #004aad;
-        margin-bottom: 10px; /* Reduce spacing */
+        margin-bottom: 10px;
     }
 
     .header-subtitle {
-        font-size: 24px; /* Adjusted subtitle size */
+        font-size: 20px;
         text-align: center;
         font-style: italic;
-        color: #008cba;
-        margin-top: -10px;
-        margin-bottom: 30px;
-    }
-
-    /* Logo Styling */
-    .header-logo {
-        width: 180px; /* Increase logo size */
-        margin: auto;
-        display: block;
-        padding-bottom: 10px;
-    }
-
-    /* Link Styling */
-    .web-link {
-        font-size: 20px; /* Increased font size */
-        text-align: center;
-        color: #004aad;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .web-link:hover {
-        color: #007bff;
-        text-decoration: underline;
+        color: #0077b6;
+        margin-top: -15px;
     }
 
     /* Tabs Styling */
-    div[data-testid="stHorizontalBlock"] > div > div {
-        margin: auto;
-        text-align: center;
-    }
-
-    /* Tab Heading Styling */
     div[data-testid="stHorizontalBlock"] > div {
-        font-size: 18px; /* Make tab labels larger */
-        font-weight: bold;
+        justify-content: center; /* Center align the tabs */
     }
 
-    /* Content Area */
+    .stTabs [role="tab"] {
+        font-size: 18px; /* Bigger tab headings */
+        font-weight: bold;
+        color: #004aad;
+        padding: 8px 20px;
+        border-radius: 15px; /* Rounded tabs */
+    }
+
+    .stTabs [role="tab"][aria-selected="true"] {
+        background-color: #004aad; /* Active tab background */
+        color: white;
+    }
+
+    /* Central alignment of tab contents */
     .content-area {
-        padding: 20px;
-        max-width: 1200px;
         margin: auto;
+        max-width: 90%;
     }
 
-    /* Output Text */
-    .output-text {
-        font-size: 22px;
-        text-align: center;
-        color: #007bff;
+    /* Button Styling */
+    .stButton > button {
+        background-color: #004aad;
+        color: white;
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-size: 16px;
         font-weight: bold;
-        margin-top: 20px;
+    }
+
+    .stButton > button:hover {
+        background-color: #007bff;
     }
 
     /* Footer Styling */
@@ -125,12 +114,13 @@ st.markdown(
         font-size: 14px;
         color: #555;
         padding: 10px;
+        margin-top: 20px;
     }
-
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 
 # Header Section
