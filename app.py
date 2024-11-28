@@ -45,6 +45,7 @@ def preprocess_tabular(data, scaler=None):
 st.set_page_config(page_title="AI-MED Models UK", page_icon="🩺", layout="wide")
 
 # CSS Styling for Improved Layout
+# CSS Styling for Improved Layout
 st.markdown(
     """
     <style>
@@ -55,58 +56,88 @@ st.markdown(
     }
 
     /* Header Styling */
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 30px;
+    }
+
+    .header-logo {
+        width: 200px; /* Increased size */
+        height: auto;
+    }
+
     .header-title {
-        font-size: 50px;
-        text-align: center;
+        font-size: 60px; /* Bigger heading */
         font-weight: bold;
         color: #004aad;
-        margin-bottom: 10px;
+        text-align: center;
+        font-family: 'Arial', sans-serif; /* Interesting font */
+    }
+
+    .header-subtitle-container {
+        text-align: right;
     }
 
     .header-subtitle {
-        font-size: 20px;
-        text-align: center;
-        font-style: italic;
+        font-size: 24px;
         color: #0077b6;
-        margin-top: -15px;
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+
+    .header-link {
+        font-size: 18px;
+        color: #004aad;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .header-link:hover {
+        color: #0077b6;
+        text-decoration: underline;
     }
 
     /* Tabs Styling */
-    div[data-testid="stHorizontalBlock"] > div {
-        justify-content: center; /* Center align the tabs */
-    }
-
     .stTabs [role="tab"] {
-        font-size: 18px; /* Bigger tab headings */
+        font-size: 22px; /* Bigger tab headings */
         font-weight: bold;
-        color: #004aad;
-        padding: 8px 20px;
+        padding: 10px 20px;
         border-radius: 15px; /* Rounded tabs */
+        background-color: #004aad; /* Tab background */
+        color: white; /* Tab text color */
+        margin: 0 10px;
+        text-align: center;
     }
 
     .stTabs [role="tab"][aria-selected="true"] {
-        background-color: #004aad; /* Active tab background */
+        background-color: #0077b6; /* Active tab background */
         color: white;
-    }
-
-    /* Central alignment of tab contents */
-    .content-area {
-        margin: auto;
-        max-width: 90%;
-    }
-
-    /* Button Styling */
-    .stButton > button {
-        background-color: #004aad;
-        color: white;
-        border-radius: 10px;
-        padding: 10px 30px;
-        font-size: 16px;
+        font-size: 24px;
         font-weight: bold;
     }
 
-    .stButton > button:hover {
-        background-color: #007bff;
+    /* Tab Content Center Alignment */
+    .content-area {
+        margin: auto;
+        max-width: 90%;
+        text-align: center; /* Center align content */
+    }
+
+    .tab-image {
+        display: block;
+        margin: 0 auto;
+        width: 100px; /* Reduced size */
+        height: auto;
+    }
+
+    /* Input Headings and Form Fields */
+    .input-heading {
+        font-size: 28px; /* Bigger input heading */
+        font-weight: bold;
+        color: #004aad;
+        text-align: center;
     }
 
     /* Footer Styling */
@@ -115,7 +146,28 @@ st.markdown(
         font-size: 14px;
         color: #555;
         padding: 10px;
-        margin-top: 20px;
+    }
+
+    /* Dark Mode Compatibility */
+    @media (prefers-color-scheme: dark) {
+        .stApp {
+            background-color: #2b2b2b;
+            color: #f4f4f4;
+        }
+
+        .header-title, .header-subtitle, .header-link, .input-heading {
+            color: #80d4ff; /* Light text color for dark mode */
+        }
+
+        .stTabs [role="tab"] {
+            background-color: #3b3b3b;
+            color: #f4f4f4;
+        }
+
+        .stTabs [role="tab"][aria-selected="true"] {
+            background-color: #0077b6;
+            color: white;
+        }
     }
     </style>
     """,
